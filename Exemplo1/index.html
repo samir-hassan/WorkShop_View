@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Tests</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <div v-if="dataLoaded">
+            <ul v-if="countries.length > 0">
+                <li v-for="(c, countIndex) in invertedCountryList" :key="countIndex"> {{countIndex+1}}. Nome do País: {{c.name}}</li>
+            </ul>
+            <p v-else>Nenhum pais encontrado</p>
+        </div>
+        <p v-else>Carregando...</p>
+    </div>
+
+    <script>    
+        const urlCatFacts = "https://restcountries.eu/rest/v2";
+
+        const vm = new Vue({
+            el:"#app", // Qual elemento via fazer o bidding
+            data: { // Onde ficam os objetos
+                person: "Samir",
+                countries : [],
+                dataLoaded : false
+            },
+            methods:{ // Todos os metodos dentro da instancia desse vue
+                
+            },
+            async beforeCreate(){ // Quando o objeto for inicializado ele executa esse método primario
+                const {data, request} = await axios.get(`${urlCatFacts}/all`)
+                this.countries = data;
+                this.dataLoaded = true;
+                
+            },
+            mounted(){
+                console.log("Todos os dados foram montados")
+            },
+            computed:{ // Propriedade computada - Exetuado toda vez que os objetos manipulados pelas funcoes forem alterados
+                invertedCountryList() {
+                    return [ ... this.countries].reverse();
+                }
+            }
+        }); 
+
+    </script>
+</body>
+</html>

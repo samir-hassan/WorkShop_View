@@ -1,0 +1,5 @@
+Vue
+    Progressivo - Possibilita implantar view em pequenas partes do seu projeto, seu projeto não necessariamente precisa ser inteirmanet em Vue
+    Ele nao faz operação direto no DOM, por isso de ser tão rapido
+    ciclo de vida da instancia: https://br.vuejs.org/v2/guide/instance.html
+
